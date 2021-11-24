@@ -1,8 +1,12 @@
 import { Link } from "react-router-dom";
-
+import { useSelector } from "react-redux";
 import classes from "./MainNavigation.module.css";
+import { Fragment } from "react";
 // import AccountBoxIcon from "@mui/icons-material/AccountBox";
 const MainNavigation = () => {
+  const isLoggedIn = useSelector((state) => {
+    console.log(state);
+  });
   return (
     <header className={classes.header}>
       <Link to="/">
@@ -10,15 +14,22 @@ const MainNavigation = () => {
       </Link>
       <nav>
         <ul>
-          <li>
-            <Link to="/auth">Login</Link>
-          </li>
-          <li>
-            <Link to="/profile">Profile</Link>
-          </li>
-          <li>
-            <button>Logout</button>
-          </li>
+          {!isLoggedIn && (
+            <li>
+              <Link to="/auth">Login</Link>
+            </li>
+          )}
+
+          {isLoggedIn && (
+            <Fragment>
+              <li>
+                <Link to="/profile">Profile</Link>
+              </li>
+              <li>
+                <button>Logout</button>
+              </li>
+            </Fragment>
+          )}
         </ul>
       </nav>
     </header>

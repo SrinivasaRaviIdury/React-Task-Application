@@ -1,11 +1,13 @@
 import { useRef, useState } from "react";
-
+import { useDispatch } from "react-redux";
 import classes from "./AuthForm.module.css";
+import { authAction } from "../../store/auth-slice";
 const API_KEY = "AIzaSyAu5FAPSumA-HlwErQb-a_oXg0qtHehizw";
 
 const AuthForm = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
+  const dispatch = useDispatch();
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
   const switchAuthModeHandler = () => {
@@ -57,6 +59,7 @@ const AuthForm = () => {
         })
         .then((data) => {
           console.log(data);
+          dispatch(authAction.login(data.idToken));
         });
     } else {
       alert("Please Enter Valid Email/Password");
