@@ -2,12 +2,12 @@ import { useRef, useState } from "react";
 
 import classes from "./AuthForm.module.css";
 const API_KEY = "AIzaSyAu5FAPSumA-HlwErQb-a_oXg0qtHehizw";
+
 const AuthForm = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
-
   const switchAuthModeHandler = () => {
     setIsLogin((prevState) => !prevState);
   };
@@ -19,36 +19,47 @@ const AuthForm = () => {
 
     if (enteredEmail !== "" && enteredPassword !== "") {
       setIsLoading(true);
+      let url = "";
       if (isLogin) {
+        url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${API_KEY}`;
       } else {
-        fetch(
-          `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${API_KEY}`,
-          {
-            method: "POST",
-            body: JSON.stringify({
-              email: enteredEmail,
-              password: enteredPassword,
-              returnSecureToken: true
-            }),
-            headers: {
-              "Content-Type": "application/json"
-            }
-          }
-        ).then((res) => {
+        url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${API_KEY}`;
+      }
+      fetch(url, {
+        method: "POST",
+        body: JSON.stringify({
+          email: enteredEmail,
+          password: enteredPassword,
+          returnSecureToken: true
+        }),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+        .then((res) => {
           setIsLoading(false);
           if (res.ok) {
-            //....
+            return res.json();
           } else {
-            res.json().then((data) => {
-              let errorMessage = "Authentication Failed";
-              if (data && data.error && data.error.message) {
-                errorMessage = data.error.message;
-              }
-              alert(errorMessage);
-            });
+            res
+              .json()
+              .then((data) => {
+                let errorMessage = "Authentication Failed";
+                if (data && data.error && data.error.message) {
+                  errorMessage = data.error.message;
+                }
+                throw new Error(errorMessage);
+              })
+              .catch((err) => {
+                alert(err.message);
+              });
           }
+        })
+        .then((data) => {
+          console.log(data);
         });
-      }
+    } else {
+      alert("Please Enter Valid Email/Password");
     }
   };
 
