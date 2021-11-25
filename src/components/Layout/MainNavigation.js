@@ -5,7 +5,7 @@ import { Fragment } from "react";
 // import AccountBoxIcon from "@mui/icons-material/AccountBox";
 const MainNavigation = () => {
   const isLoggedIn = useSelector((state) => {
-    console.log(state);
+    return state.auth.isLoggedIn;
   });
   return (
     <header className={classes.header}>

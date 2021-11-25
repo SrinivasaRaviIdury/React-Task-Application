@@ -59,7 +59,7 @@ const AuthForm = () => {
         })
         .then((data) => {
           console.log(data);
-          dispatch(authAction.login(data.idToken));
+          dispatch(authAction.loginHandler(data.idToken));
         });
     } else {
       alert("Please Enter Valid Email/Password");
