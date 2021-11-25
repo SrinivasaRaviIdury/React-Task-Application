@@ -2,9 +2,12 @@ import { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import classes from "./AuthForm.module.css";
 import { authAction } from "../../store/auth-slice";
+import { useHistory } from "react-router-dom";
+
 const API_KEY = "AIzaSyAu5FAPSumA-HlwErQb-a_oXg0qtHehizw";
 
 const AuthForm = () => {
+  const history = useHistory();
   const [isLogin, setIsLogin] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
@@ -58,8 +61,12 @@ const AuthForm = () => {
           }
         })
         .then((data) => {
-          console.log(data);
-          dispatch(authAction.loginHandler(data.idToken));
+          dispatch(
+            authAction.loginHandler({
+              token: data.idToken
+            })
+          );
+          history.replace("/");
         });
     } else {
       alert("Please Enter Valid Email/Password");

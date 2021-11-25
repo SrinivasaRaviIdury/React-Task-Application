@@ -1,12 +1,18 @@
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import classes from "./MainNavigation.module.css";
 import { Fragment } from "react";
-// import AccountBoxIcon from "@mui/icons-material/AccountBox";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { authAction } from "../../store/auth-slice";
 const MainNavigation = () => {
+  const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => {
     return state.auth.isLoggedIn;
   });
+  const logoutHandler = () => {
+    dispatch(authAction.logoutHandler());
+  };
+
   return (
     <header className={classes.header}>
       <Link to="/">
@@ -16,17 +22,19 @@ const MainNavigation = () => {
         <ul>
           {!isLoggedIn && (
             <li>
-              <Link to="/auth">Login</Link>
+              <Link to="/auth">Login / Signup</Link>
             </li>
           )}
 
           {isLoggedIn && (
             <Fragment>
               <li>
-                <Link to="/profile">Profile</Link>
+                <Link to="/profile">
+                  <AccountCircleIcon style={{ fontSize: 40, marginTop: 10 }} />
+                </Link>
               </li>
               <li>
-                <button>Logout</button>
+                <button onClick={logoutHandler}>Logout</button>
               </li>
             </Fragment>
           )}
