@@ -14,7 +14,8 @@ function App() {
     <Layout>
       <Switch>
         <Route path="/" exact>
-          <HomePage />
+          {isLoggedIn && <HomePage />}
+          {!isLoggedIn && <Redirect to="/auth" />}
         </Route>
         {!isLoggedIn && (
           <Route path="/auth">
