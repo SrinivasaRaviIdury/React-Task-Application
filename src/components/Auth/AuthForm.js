@@ -63,7 +63,9 @@ const AuthForm = () => {
         .then((data) => {
           dispatch(
             authAction.loginHandler({
-              token: data.idToken
+              token: data.idToken,
+              userName: data.email.split("@")[0],
+              email: data.email
             })
           );
           history.replace("/");

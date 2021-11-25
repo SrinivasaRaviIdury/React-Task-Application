@@ -1,5 +1,4 @@
 import AuthForm from "../components/Auth/AuthForm";
-import { Fragment } from "react";
 import image from "../../public/static/43022.jpg";
 import classes from "./AuthPage.module.css";
 

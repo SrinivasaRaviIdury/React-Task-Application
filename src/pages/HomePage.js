@@ -4,9 +4,7 @@ import classes from "./HomePage.module.css";
 const HomePage = () => {
   return (
     <Fragment>
-      <div className={classes.background}>
-        <StartingPageContent />
-      </div>
+      <StartingPageContent />
     </Fragment>
   );
 };

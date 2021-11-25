@@ -1,20 +1,30 @@
-import { Fragment } from "react";
 import classes from "./ProfileForm.module.css";
 import { useSelector } from "react-redux";
 
 const ProfileForm = () => {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const userName = useSelector((state) => state.auth.userName);
+  const email = useSelector((state) => state.auth.email);
   return (
-    <Fragment>
+    <div className={classes.profile_form}>
       <h2> User Profile</h2>
       {isLoggedIn && (
         <table>
-          <tr>User Name</tr>
-          <tr>User Mail Id</tr>
-          <tr>Nummber of Request</tr>
+          <tr>
+            <th>User Name</th>
+            <td>{userName}</td>
+          </tr>
+          <tr>
+            <th>User Email</th>
+            <td>{email}</td>
+          </tr>
+          <tr>
+            <th>Number of Request</th>
+            <td>10</td>
+          </tr>
         </table>
       )}
-    </Fragment>
+    </div>
   );
 };
 
