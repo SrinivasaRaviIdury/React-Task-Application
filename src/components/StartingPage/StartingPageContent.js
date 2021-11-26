@@ -1,4 +1,5 @@
 import { useSelector } from "react-redux";
+import Requests from "../Requests/Requests";
 import classes from "./StartingPageContent.module.css";
 
 const StartingPageContent = () => {
@@ -7,8 +8,13 @@ const StartingPageContent = () => {
 
   return (
     <section className={classes.starting}>
-      <h2>Welcome {username}</h2>
-      {!isLoggedIn && <p>Please Login / SignUp</p>}
+      <div>
+        <h2>Welcome {username}</h2>
+        {!isLoggedIn && <p>Please Login / SignUp</p>}
+      </div>
+      <div>
+        <Requests />
+      </div>
     </section>
   );
 };
