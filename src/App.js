@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { Switch, Route, Redirect } from "react-router-dom";
-
+import RequestDetails from "./components/Requests/RequestDetails";
 import Layout from "./components/Layout/Layout";
 import UserProfile from "./components/Profile/UserProfile";
 import AuthPage from "./pages/AuthPage";
@@ -27,7 +27,9 @@ function App() {
           {isLoggedIn && <UserProfile />}
           {!isLoggedIn && <Redirect to="/auth" />}
         </Route>
-
+        <Route path="/request/:requestId">
+          <RequestDetails />
+        </Route>
         <Route path="*">
           <Redirect to="/" />
         </Route>

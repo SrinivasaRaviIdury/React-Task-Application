@@ -29,6 +29,9 @@ const MainNavigation = () => {
           {isLoggedIn && (
             <Fragment>
               <li>
+                <Link to="/">Home</Link>
+              </li>
+              <li>
                 <Link to="/profile">
                   <AccountCircleIcon style={{ fontSize: 40, marginTop: 10 }} />
                 </Link>
